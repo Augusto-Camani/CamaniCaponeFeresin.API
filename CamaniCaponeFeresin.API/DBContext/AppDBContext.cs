@@ -17,8 +17,8 @@ namespace CamaniCaponeFeresin.API.DBContext //Definimos nuestro namespace.
         public DbSet<User> Users { get; set; }  //Cada DbSet es una tabla nueva en nuestra BASE DE DATOS.
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Client> Clients { get; set; }
-        public DbSet<Purchase> Purchases { get; set; } //Aquí tenemos tabla de usuarios, ventas, línea de ventas y productos.
-        public DbSet<PurchaseLine> PurchaseLines { get; set; }
+        public DbSet<Sale> Purchases { get; set; } //Aquí tenemos tabla de usuarios, ventas, línea de ventas y productos.
+        public DbSet<SaleLine> PurchaseLines { get; set; }
         public DbSet<Product> Products { get; set; }
 
 
@@ -76,26 +76,26 @@ namespace CamaniCaponeFeresin.API.DBContext //Definimos nuestro namespace.
             modelBuilder.Entity<Client>(entity => //Se configura la entidad.
             {   //No requiere agregar el HasKey() ya que la llave primaria se encuentra en la clase padre.
                 entity.ToTable("Users"); //Aquí se le dá nombre a la tabla que tendrá la entidad en la base de datos.Se lo agrega a la tabla USERS ya que hereda de la clase User.
-                entity.HasMany(c => c.Purchases) //Se especifica el tipo de relación entre la entidades. (En este caso de UNO a MUCHOS).
+                entity.HasMany(c => c.Sales) //Se especifica el tipo de relación entre la entidades. (En este caso de UNO a MUCHOS).
                     .WithOne(p => p.Client) //Se especifica la relación de la entidad secundaria con la primaria (En este caso de MUCHOS a UNO).
                     .HasForeignKey(p => p.ClientId);//Se especifica la clave foránea de la tabla.
             });
 
-            modelBuilder.Entity<Purchase>(entity =>
+            modelBuilder.Entity<Sale>(entity =>
             {
-                entity.ToTable("Purchases");
+                entity.ToTable("Sales");
                 entity.HasKey(e => e.Id);//Se especifica cual es la clave primaria de la tabla.
-                entity.HasMany(p => p.PurchaseLines)
-                    .WithOne(pl => pl.Purchase)
-                    .HasForeignKey(pl => pl.PurchaseId);
+                entity.HasMany(p => p.SaleLines)
+                    .WithOne(pl => pl.Sale)
+                    .HasForeignKey(pl => pl.SaleId);
             });
 
-            modelBuilder.Entity<PurchaseLine>(entity =>
+            modelBuilder.Entity<SaleLine>(entity =>
             {
-                entity.ToTable("PurchaseLines");
+                entity.ToTable("SaleLines");
                 entity.HasKey(e => e.Id);
                 entity.HasOne(pl => pl.Product)
-                    .WithMany(p => p.PurchaseLines)
+                    .WithMany(p => p.SaleLines)
                     .HasForeignKey(pl => pl.ProductId);
             });
 
@@ -103,7 +103,7 @@ namespace CamaniCaponeFeresin.API.DBContext //Definimos nuestro namespace.
             {
                 entity.ToTable("Products");
                 entity.HasKey(e => e.Id);
-                entity.HasMany(p => p.PurchaseLines)
+                entity.HasMany(p => p.SaleLines)
                     .WithOne(pl => pl.Product)
                     .HasForeignKey(pl => pl.ProductId);
             });

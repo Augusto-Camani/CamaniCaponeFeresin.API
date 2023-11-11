@@ -29,7 +29,7 @@ namespace CamaniCaponeFeresin.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Purchases",
+                name: "Sales",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -38,9 +38,9 @@ namespace CamaniCaponeFeresin.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Purchases", x => x.Id);
+                    table.PrimaryKey("PK_Sales", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Purchases_Users_ClientId",
+                        name: "FK_Sales_Users_ClientId",
                         column: x => x.ClientId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -56,7 +56,7 @@ namespace CamaniCaponeFeresin.API.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     Price = table.Column<decimal>(type: "TEXT", nullable: false),
-                    PurchaseLineId = table.Column<int>(type: "INTEGER", nullable: true)
+                    SaleLineId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -64,35 +64,36 @@ namespace CamaniCaponeFeresin.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PurchaseLines",
+                name: "SaleLines",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Quantity = table.Column<int>(type: "INTEGER", nullable: false),
                     ProductId = table.Column<int>(type: "INTEGER", nullable: false),
+                    SaleId = table.Column<int>(type: "INTEGER", nullable: false),
                     PurchaseId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PurchaseLines", x => x.Id);
+                    table.PrimaryKey("PK_SaleLines", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PurchaseLines_Products_ProductId",
+                        name: "FK_SaleLines_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PurchaseLines_Purchases_PurchaseId",
-                        column: x => x.PurchaseId,
-                        principalTable: "Purchases",
+                        name: "FK_SaleLines_Sales_SaleId",
+                        column: x => x.SaleId,
+                        principalTable: "Sales",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "Description", "Name", "Price", "PurchaseLineId" },
+                columns: new[] { "Id", "Description", "Name", "Price", "SaleLineId" },
                 values: new object[] { 1, "Guitarra criolla", "Guitarra", 30000m, null });
 
             migrationBuilder.InsertData(
@@ -107,30 +108,30 @@ namespace CamaniCaponeFeresin.API.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_PurchaseLineId",
+                name: "IX_Products_SaleLineId",
                 table: "Products",
-                column: "PurchaseLineId");
+                column: "SaleLineId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PurchaseLines_ProductId",
-                table: "PurchaseLines",
+                name: "IX_SaleLines_ProductId",
+                table: "SaleLines",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PurchaseLines_PurchaseId",
-                table: "PurchaseLines",
-                column: "PurchaseId");
+                name: "IX_SaleLines_SaleId",
+                table: "SaleLines",
+                column: "SaleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Purchases_ClientId",
-                table: "Purchases",
+                name: "IX_Sales_ClientId",
+                table: "Sales",
                 column: "ClientId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Products_PurchaseLines_PurchaseLineId",
+                name: "FK_Products_SaleLines_SaleLineId",
                 table: "Products",
-                column: "PurchaseLineId",
-                principalTable: "PurchaseLines",
+                column: "SaleLineId",
+                principalTable: "SaleLines",
                 principalColumn: "Id");
         }
 
@@ -138,17 +139,17 @@ namespace CamaniCaponeFeresin.API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Products_PurchaseLines_PurchaseLineId",
+                name: "FK_Products_SaleLines_SaleLineId",
                 table: "Products");
 
             migrationBuilder.DropTable(
-                name: "PurchaseLines");
+                name: "SaleLines");
 
             migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Purchases");
+                name: "Sales");
 
             migrationBuilder.DropTable(
                 name: "Users");

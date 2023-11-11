@@ -9,6 +9,6 @@ namespace CamaniCaponeFeresin.API.Entities
             UserType = "Client";
         }
 
-        public ICollection<Purchase> Purchases { get; set; } = new List<Purchase>();
+        public ICollection<Sale> Sales { get; set; } = new List<Sale>();
     }
 }

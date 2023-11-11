@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CamaniCaponeFeresin.API.Entities
 {
-    public class Purchase
+    public class Sale
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -13,7 +13,7 @@ namespace CamaniCaponeFeresin.API.Entities
         public Client Client { get; set; }
         public int ClientId { get; set; }
         
-        public ICollection<PurchaseLine> PurchaseLines { get; set; } = new List<PurchaseLine>();
+        public ICollection<SaleLine> SaleLines { get; set; } = new List<SaleLine>();
 
     }
 }

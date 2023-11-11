@@ -33,12 +33,12 @@ namespace CamaniCaponeFeresin.API.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("PurchaseLineId")
+                    b.Property<int?>("SaleLineId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PurchaseLineId");
+                    b.HasIndex("SaleLineId");
 
                     b.ToTable("Products", (string)null);
 
@@ -52,7 +52,7 @@ namespace CamaniCaponeFeresin.API.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CamaniCaponeFeresin.API.Entities.Purchase", b =>
+            modelBuilder.Entity("CamaniCaponeFeresin.API.Entities.Sale", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -65,10 +65,10 @@ namespace CamaniCaponeFeresin.API.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("Purchases", (string)null);
+                    b.ToTable("Sales", (string)null);
                 });
 
-            modelBuilder.Entity("CamaniCaponeFeresin.API.Entities.PurchaseLine", b =>
+            modelBuilder.Entity("CamaniCaponeFeresin.API.Entities.SaleLine", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -83,13 +83,16 @@ namespace CamaniCaponeFeresin.API.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("SaleId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("PurchaseId");
+                    b.HasIndex("SaleId");
 
-                    b.ToTable("PurchaseLines", (string)null);
+                    b.ToTable("SaleLines", (string)null);
                 });
 
             modelBuilder.Entity("CamaniCaponeFeresin.API.Entities.User", b =>
@@ -177,15 +180,15 @@ namespace CamaniCaponeFeresin.API.Migrations
 
             modelBuilder.Entity("CamaniCaponeFeresin.API.Entities.Product", b =>
                 {
-                    b.HasOne("CamaniCaponeFeresin.API.Entities.PurchaseLine", null)
+                    b.HasOne("CamaniCaponeFeresin.API.Entities.SaleLine", null)
                         .WithMany("Products")
-                        .HasForeignKey("PurchaseLineId");
+                        .HasForeignKey("SaleLineId");
                 });
 
-            modelBuilder.Entity("CamaniCaponeFeresin.API.Entities.Purchase", b =>
+            modelBuilder.Entity("CamaniCaponeFeresin.API.Entities.Sale", b =>
                 {
                     b.HasOne("CamaniCaponeFeresin.API.Entities.Client", "Client")
-                        .WithMany("Purchases")
+                        .WithMany("Sales")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -193,43 +196,43 @@ namespace CamaniCaponeFeresin.API.Migrations
                     b.Navigation("Client");
                 });
 
-            modelBuilder.Entity("CamaniCaponeFeresin.API.Entities.PurchaseLine", b =>
+            modelBuilder.Entity("CamaniCaponeFeresin.API.Entities.SaleLine", b =>
                 {
                     b.HasOne("CamaniCaponeFeresin.API.Entities.Product", "Product")
-                        .WithMany("PurchaseLines")
+                        .WithMany("SaleLines")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CamaniCaponeFeresin.API.Entities.Purchase", "Purchase")
-                        .WithMany("PurchaseLines")
-                        .HasForeignKey("PurchaseId")
+                    b.HasOne("CamaniCaponeFeresin.API.Entities.Sale", "Sale")
+                        .WithMany("SaleLines")
+                        .HasForeignKey("SaleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Product");
 
-                    b.Navigation("Purchase");
+                    b.Navigation("Sale");
                 });
 
             modelBuilder.Entity("CamaniCaponeFeresin.API.Entities.Product", b =>
                 {
-                    b.Navigation("PurchaseLines");
+                    b.Navigation("SaleLines");
                 });
 
-            modelBuilder.Entity("CamaniCaponeFeresin.API.Entities.Purchase", b =>
+            modelBuilder.Entity("CamaniCaponeFeresin.API.Entities.Sale", b =>
                 {
-                    b.Navigation("PurchaseLines");
+                    b.Navigation("SaleLines");
                 });
 
-            modelBuilder.Entity("CamaniCaponeFeresin.API.Entities.PurchaseLine", b =>
+            modelBuilder.Entity("CamaniCaponeFeresin.API.Entities.SaleLine", b =>
                 {
                     b.Navigation("Products");
                 });
 
             modelBuilder.Entity("CamaniCaponeFeresin.API.Entities.Client", b =>
                 {
-                    b.Navigation("Purchases");
+                    b.Navigation("Sales");
                 });
 #pragma warning restore 612, 618
         }
