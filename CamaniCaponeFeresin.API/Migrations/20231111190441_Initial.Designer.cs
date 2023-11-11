@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CamaniCaponeFeresin.API.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20231111182027_Initial")]
+    [Migration("20231111190441_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

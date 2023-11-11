@@ -1,4 +1,5 @@
-﻿using CamaniCaponeFeresin.API.Services.Interfaces;
+﻿using CamaniCaponeFeresin.API.Models;
+using CamaniCaponeFeresin.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CamaniCaponeFeresin.API.Controllers
@@ -14,7 +15,7 @@ namespace CamaniCaponeFeresin.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetAll()
         {
             try
             {
@@ -22,7 +23,7 @@ namespace CamaniCaponeFeresin.API.Controllers
             }
             catch
             {
-               return BadRequest();
+                return BadRequest();
             }
         }
 
@@ -31,7 +32,41 @@ namespace CamaniCaponeFeresin.API.Controllers
         {
             try
             {
-                return Ok(_productService.GetById(id));
+                var product = _productService.GetById(id);
+
+                if (product == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(product);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("ByName/{name}")]
+        public IActionResult GetByName(string name)
+        {
+            try
+            {
+                return Ok(_productService.GetByName(name));
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpPost]
+        public IActionResult CreateProduct([FromBody] ProductDTO productDTO)
+        {
+            try
+            {
+                _productService.Add(productDTO);
+                return CreatedAtAction(nameof(GetById), new { id = productDTO.Id }, productDTO);
             }
             catch
             {
@@ -39,7 +74,33 @@ namespace CamaniCaponeFeresin.API.Controllers
             }
         }
 
-        [HttpPost("{}")]
+        [HttpPut("{id}")]
+        public IActionResult UpdateProduct(int id, [FromBody] ProductDTO productDTO)
+        {
+            try
+            {
+                _productService.Update(productDTO);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
+        }
 
+        [HttpDelete("{id}")]
+        public IActionResult DeleteProduct(int id)
+        {
+            try
+            {
+                _productService.Delete(id);
+                return NoContent();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
     }
 }
