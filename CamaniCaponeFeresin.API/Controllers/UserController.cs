@@ -1,4 +1,5 @@
 ﻿using CamaniCaponeFeresin.API.Models;
+using CamaniCaponeFeresin.API.Services.Implementations;
 using CamaniCaponeFeresin.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,21 +7,21 @@ namespace CamaniCaponeFeresin.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProductController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private readonly IProductService _productService;
-        public ProductController(IProductService productService)
-        {
-            _productService = productService;
-        }
+        private readonly IUserService _userService;
 
+        public UserController(IUserService userService)
+        {
+            _userService = userService;
+        }
 
         [HttpGet]
         public IActionResult GetAll()
         {
             try
             {
-                return Ok(_productService.GetAll());
+                return Ok(_userService.GetAll());
             }
             catch
             {
@@ -33,7 +34,7 @@ namespace CamaniCaponeFeresin.API.Controllers
         {
             try
             {
-                var product = _productService.GetById(id);
+                var product = _userService.GetById(id);
 
                 if (product == null)
                 {
@@ -53,7 +54,7 @@ namespace CamaniCaponeFeresin.API.Controllers
         {
             try
             {
-                return Ok(_productService.GetByName(name));
+                return Ok(_userService.GetByUserName(name));
             }
             catch
             {
@@ -62,12 +63,12 @@ namespace CamaniCaponeFeresin.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateProduct([FromBody] ProductDTO productDTO)
+        public IActionResult CreateProduct([FromBody] UserDTO userDTO)
         {
             try
             {
-                _productService.Add(productDTO);
-                return CreatedAtAction(nameof(GetById), new { id = productDTO.Id }, productDTO);
+                _userService.Add(userDTO);
+                return CreatedAtAction(nameof(GetById), new { id = userDTO.Id }, userDTO);
             }
             catch
             {
@@ -76,18 +77,18 @@ namespace CamaniCaponeFeresin.API.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateProduct([FromBody] ProductDTO productDTO)
+        public IActionResult UpdateProduct([FromBody] UserDTO userDTO)
         {
             try
             {
-                _productService.Update(productDTO);
+                _userService.Update(userDTO);
                 return Ok();
             }
             catch
             {
                 return BadRequest();
             }
-            
+
         }
 
         [HttpDelete("{id}")]
@@ -95,7 +96,7 @@ namespace CamaniCaponeFeresin.API.Controllers
         {
             try
             {
-                _productService.Delete(id);
+                _userService.Delete(id);
                 return NoContent();
             }
             catch
