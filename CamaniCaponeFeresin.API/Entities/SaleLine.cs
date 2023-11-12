@@ -15,7 +15,7 @@ namespace CamaniCaponeFeresin.API.Entities
         public int ProductId { get; set; }
         
 
-        [ForeignKey("PurchaseId")]
+        [ForeignKey("SaleId")]
         public Sale Sale { get; set; }
         public int SaleId { get; set; }
        

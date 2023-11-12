@@ -9,7 +9,7 @@ namespace CamaniCaponeFeresin.API.Services.Interfaces
         public Product GetById(int id);
         public Product GetByName(string name);
         public void Add(ProductDTO productDTO);
-        public void Update(ProductDTO productDTO);
+        public void Update(int id , ProductDTO productDTO);
         public void Delete(int id);
     }
 }

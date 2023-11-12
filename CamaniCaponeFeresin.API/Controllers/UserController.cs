@@ -1,4 +1,5 @@
-﻿using CamaniCaponeFeresin.API.Models;
+﻿using CamaniCaponeFeresin.API.Enums;
+using CamaniCaponeFeresin.API.Models;
 using CamaniCaponeFeresin.API.Services.Implementations;
 using CamaniCaponeFeresin.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,7 @@ namespace CamaniCaponeFeresin.API.Controllers
             _userService = userService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
             try
@@ -29,7 +30,7 @@ namespace CamaniCaponeFeresin.API.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetById/{id}")]
         public IActionResult GetById(int id)
         {
             try
@@ -49,7 +50,7 @@ namespace CamaniCaponeFeresin.API.Controllers
             }
         }
 
-        [HttpGet("ByName/{name}")]
+        [HttpGet("GetByName/{name}")]
         public IActionResult GetByName(string name)
         {
             try
@@ -62,48 +63,39 @@ namespace CamaniCaponeFeresin.API.Controllers
             }
         }
 
-        [HttpPost]
-        public IActionResult CreateProduct([FromBody] UserDTO userDTO)
+        [HttpPost("CreateClient")]
+        public IActionResult CreateClient([FromBody] UserDTO userDTO)
+        {
+
+            _userService.AddClient(userDTO);
+            return StatusCode(201);
+        }
+
+        [HttpPost("CreateAdmin")]
+        public IActionResult CreateAdmin([FromBody] UserDTO adminDTO)
+        {
+
+            _userService.AddAdmin(adminDTO);
+            return StatusCode(201);
+        }
+
+
+        [HttpPut("UpdateUser/{id}")]
+        public IActionResult Update(int id, [FromBody] UserDTO userDTO)
         {
             try
             {
-                _userService.Add(userDTO);
-                return StatusCode(201);
+                _userService.Update(id, userDTO);
+                return NoContent();
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest();
+                // Dependiendo del tipo de excepción que arroje el servicio, puedes personalizar el manejo de errores aquí
+                return BadRequest(ex.Message);
             }
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] UserDTO userDTO)
-        {
-                try
-                {
-                var existingUser = _userService.GetById(id); // Obtén el producto existente por su ID
-                if (existingUser == null)
-                {
-                    return NotFound(); // Devuelve un código de estado 404 Not Found si el producto no se encuentra
-                }
-                else
-                {   
-                   
-                    // Realiza la actualización utilizando tu servicio
-                    existingUser.UserName = userDTO.UserName;
-                    existingUser.Password = userDTO.Password;
-                    existingUser.Email = userDTO.Email;
-                    
-                    return NoContent(); // Devuelve un código de estado 204 No Content para indicar una actualización exitosa
-                }
-                }
-                catch
-            {
-                return BadRequest();
-            }
-        }
-
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteUser/{id}")]
         public IActionResult DeleteProduct(int id)
         {
             try

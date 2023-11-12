@@ -38,10 +38,23 @@ namespace CamaniCaponeFeresin.API.Services.Implementations
             _productRepository.Add(product);
         }
 
-        public void Update(ProductDTO productDTO)
+        public void Update(int id, ProductDTO productDTO)
         {
-            var product = _mapper.Map<Product>(productDTO);
-            _productRepository.Update(product);
+            var existingProduct = _productRepository.GetById(id);
+
+            if (existingProduct == null)
+            {
+                // Manejar el caso en el que el producto no existe
+                throw new Exception("Producto no encontrado");
+            }
+
+            // Mapear las propiedades relevantes del DTO a la entidad existente
+            existingProduct.Name = productDTO.Name;
+            existingProduct.Description = productDTO.Description;
+            existingProduct.Price = productDTO.Price;
+
+            // Actualizar la entidad en el repositorio
+            _productRepository.Update(existingProduct);
         }
         public void Delete(int id)
         {

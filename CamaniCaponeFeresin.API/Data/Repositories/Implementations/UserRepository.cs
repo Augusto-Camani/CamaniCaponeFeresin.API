@@ -24,15 +24,21 @@ namespace CamaniCaponeFeresin.API.Data.Repositories.Implementations
         {
             return _context.Users.SingleOrDefault( u => u.UserName == name);
         }
-        public void Add(User user)
+        public void AddClient(User user)
         {
             _context.Add(user);
             _context.SaveChanges();
         }
 
-        public void Update(User product)
+        public void AddAdmin(User admin) 
         {
-           _context.Update(product);
+            _context.Add(admin);
+            _context.SaveChanges();
+        }
+
+        public void Update(User user)
+        {
+           _context.Update(user);
            _context.SaveChanges();
         }
         public void Delete(int id)

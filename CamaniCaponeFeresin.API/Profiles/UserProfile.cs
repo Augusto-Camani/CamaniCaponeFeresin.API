@@ -8,8 +8,8 @@ namespace CamaniCaponeFeresin.API.Profiles
     {
         public UserProfile()
         {
-            CreateMap<User, UserDTO>();
-            CreateMap<UserDTO, User>();  
+            CreateMap<UserDTO , Admin>();
+            CreateMap<UserDTO, Client>();  
         }
 
     }

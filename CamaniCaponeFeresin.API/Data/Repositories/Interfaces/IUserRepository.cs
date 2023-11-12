@@ -7,8 +7,9 @@ namespace CamaniCaponeFeresin.API.Data.Repositories.Interfaces
         public IEnumerable<User> GetAll();
         public User GetById(int id);
         public User GetByUserName(string name);
-        public void Add(User product);
-        public void Update(User product);
+        public void AddClient(User user);
+        public void AddAdmin(User admin);
+        public void Update(User user);
         public void Delete(int id);
     }
 }

@@ -1,4 +1,6 @@
-﻿using CamaniCaponeFeresin.API.Models;
+﻿using AutoMapper;
+using CamaniCaponeFeresin.API.Entities;
+using CamaniCaponeFeresin.API.Models;
 using CamaniCaponeFeresin.API.Services.Implementations;
 using CamaniCaponeFeresin.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -10,13 +12,13 @@ namespace CamaniCaponeFeresin.API.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService, IMapper mapper)
         {
             _productService = productService;
         }
 
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
             try
@@ -29,7 +31,7 @@ namespace CamaniCaponeFeresin.API.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetById/{id}")]
         public IActionResult GetById(int id)
         {
             try
@@ -49,7 +51,7 @@ namespace CamaniCaponeFeresin.API.Controllers
             }
         }
 
-        [HttpGet("ByName/{name}")]
+        [HttpGet("GetByName/{name}")]
         public IActionResult GetByName(string name)
         {
             try
@@ -62,7 +64,7 @@ namespace CamaniCaponeFeresin.API.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("CreateProduct")]
         public IActionResult CreateProduct([FromBody] ProductDTO productDTO)
         {
             try
@@ -76,31 +78,22 @@ namespace CamaniCaponeFeresin.API.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("UpdateProduct/{id}")]
         public IActionResult Update(int id, [FromBody] ProductDTO productDTO)
         {
             try
             {
-                var existingProduct = _productService.GetById(id); // Obtén el producto existente por su ID
-                if (existingProduct == null)
-                {
-                    return NotFound(); // Devuelve un código de estado 404 Not Found si el producto no se encuentra
-                }
-                else
-                {   // Realiza la actualización utilizando tu servicio
-                    existingProduct.Name =  productDTO.Name;
-                    existingProduct.Description = productDTO.Description;
-                    existingProduct.Price = productDTO.Price; 
-                    return NoContent(); // Devuelve un código de estado 204 No Content para indicar una actualización exitosa
-                }
+                _productService.Update(id, productDTO);
+                return NoContent();
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest();
+                // Dependiendo del tipo de excepción que arroje el servicio, puedes personalizar el manejo de errores aquí
+                return BadRequest(ex.Message);
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteProduct/{id}")]
         public IActionResult DeleteProduct(int id)
         {
             try
