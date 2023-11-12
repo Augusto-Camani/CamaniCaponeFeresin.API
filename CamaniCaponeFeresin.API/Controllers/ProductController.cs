@@ -1,4 +1,5 @@
 ﻿using CamaniCaponeFeresin.API.Models;
+using CamaniCaponeFeresin.API.Services.Implementations;
 using CamaniCaponeFeresin.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -67,7 +68,7 @@ namespace CamaniCaponeFeresin.API.Controllers
             try
             {
                 _productService.Add(productDTO);
-                return CreatedAtAction(nameof(GetById), new { id = productDTO.Id }, productDTO);
+                return StatusCode(201);
             }
             catch
             {
@@ -75,19 +76,28 @@ namespace CamaniCaponeFeresin.API.Controllers
             }
         }
 
-        [HttpPut]
-        public IActionResult UpdateProduct([FromBody] ProductDTO productDTO)
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody] ProductDTO productDTO)
         {
             try
             {
-                _productService.Update(productDTO);
-                return Ok();
+                var existingProduct = _productService.GetById(id); // Obtén el producto existente por su ID
+                if (existingProduct == null)
+                {
+                    return NotFound(); // Devuelve un código de estado 404 Not Found si el producto no se encuentra
+                }
+                else
+                {   // Realiza la actualización utilizando tu servicio
+                    existingProduct.Name =  productDTO.Name;
+                    existingProduct.Description = productDTO.Description;
+                    existingProduct.Price = productDTO.Price; 
+                    return NoContent(); // Devuelve un código de estado 204 No Content para indicar una actualización exitosa
+                }
             }
             catch
             {
                 return BadRequest();
             }
-            
         }
 
         [HttpDelete("{id}")]

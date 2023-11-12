@@ -113,15 +113,14 @@ namespace CamaniCaponeFeresin.API.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("UserType")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("UserType")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
 
-                    b.HasDiscriminator<string>("UserType").HasValue("User");
+                    b.HasDiscriminator<int>("UserType");
 
                     b.UseTphMappingStrategy();
                 });
@@ -130,7 +129,7 @@ namespace CamaniCaponeFeresin.API.Migrations
                 {
                     b.HasBaseType("CamaniCaponeFeresin.API.Entities.User");
 
-                    b.HasDiscriminator().HasValue("Admin");
+                    b.HasDiscriminator().HasValue(0);
 
                     b.HasData(
                         new
@@ -139,7 +138,7 @@ namespace CamaniCaponeFeresin.API.Migrations
                             Email = "augustocamaniadmin@gmail.com",
                             Password = "1342",
                             UserName = "ElSysAdmin",
-                            UserType = "Admin"
+                            UserType = 0
                         });
                 });
 
@@ -149,7 +148,7 @@ namespace CamaniCaponeFeresin.API.Migrations
 
                     b.ToTable("Users", (string)null);
 
-                    b.HasDiscriminator().HasValue("Client");
+                    b.HasDiscriminator().HasValue(1);
 
                     b.HasData(
                         new
@@ -158,7 +157,7 @@ namespace CamaniCaponeFeresin.API.Migrations
                             Email = "augustocamani@gmail.com",
                             Password = "1234",
                             UserName = "Enano",
-                            UserType = "Client"
+                            UserType = 1
                         },
                         new
                         {
@@ -166,7 +165,7 @@ namespace CamaniCaponeFeresin.API.Migrations
                             Email = "santinocapone@gmail.com",
                             Password = "4321",
                             UserName = "CaponeCapo",
-                            UserType = "Client"
+                            UserType = 1
                         },
                         new
                         {
@@ -174,7 +173,7 @@ namespace CamaniCaponeFeresin.API.Migrations
                             Email = "santiagoferesin@gmail.com",
                             Password = "3412",
                             UserName = "ElFere",
-                            UserType = "Client"
+                            UserType = 1
                         });
                 });
 

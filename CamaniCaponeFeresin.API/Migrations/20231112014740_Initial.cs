@@ -21,7 +21,7 @@ namespace CamaniCaponeFeresin.API.Migrations
                     UserName = table.Column<string>(type: "TEXT", nullable: false),
                     Password = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
-                    UserType = table.Column<string>(type: "TEXT", nullable: false)
+                    UserType = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -101,10 +101,10 @@ namespace CamaniCaponeFeresin.API.Migrations
                 columns: new[] { "Id", "Email", "Password", "UserName", "UserType" },
                 values: new object[,]
                 {
-                    { 1, "augustocamani@gmail.com", "1234", "Enano", "Client" },
-                    { 2, "santinocapone@gmail.com", "4321", "CaponeCapo", "Client" },
-                    { 3, "santiagoferesin@gmail.com", "3412", "ElFere", "Client" },
-                    { 4, "augustocamaniadmin@gmail.com", "1342", "ElSysAdmin", "Admin" }
+                    { 1, "augustocamani@gmail.com", "1234", "Enano", 1 },
+                    { 2, "santinocapone@gmail.com", "4321", "CaponeCapo", 1 },
+                    { 3, "santiagoferesin@gmail.com", "3412", "ElFere", 1 },
+                    { 4, "augustocamaniadmin@gmail.com", "1342", "ElSysAdmin", 0 }
                 });
 
             migrationBuilder.CreateIndex(

@@ -4,7 +4,7 @@
     {
         public Admin()
         {
-            UserType = "Admin";
+           UserType= (CamaniCaponeFeresin.API.Enums.UserType.Admin);
         }
     }
 }

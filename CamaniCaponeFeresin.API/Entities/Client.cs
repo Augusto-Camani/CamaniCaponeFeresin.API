@@ -6,7 +6,7 @@ namespace CamaniCaponeFeresin.API.Entities
     {
         public Client()
         {
-            UserType = "Client";
+            UserType = (CamaniCaponeFeresin.API.Enums.UserType.Client);
         }
 
         public ICollection<Sale> Sales { get; set; } = new List<Sale>();

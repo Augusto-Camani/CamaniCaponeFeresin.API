@@ -68,7 +68,7 @@ namespace CamaniCaponeFeresin.API.Controllers
             try
             {
                 _userService.Add(userDTO);
-                return CreatedAtAction(nameof(GetById), new { id = userDTO.Id }, userDTO);
+                return StatusCode(201);
             }
             catch
             {
@@ -76,19 +76,31 @@ namespace CamaniCaponeFeresin.API.Controllers
             }
         }
 
-        [HttpPut]
-        public IActionResult UpdateProduct([FromBody] UserDTO userDTO)
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody] UserDTO userDTO)
         {
-            try
-            {
-                _userService.Update(userDTO);
-                return Ok();
-            }
-            catch
+                try
+                {
+                var existingUser = _userService.GetById(id); // Obtén el producto existente por su ID
+                if (existingUser == null)
+                {
+                    return NotFound(); // Devuelve un código de estado 404 Not Found si el producto no se encuentra
+                }
+                else
+                {   
+                   
+                    // Realiza la actualización utilizando tu servicio
+                    existingUser.UserName = userDTO.UserName;
+                    existingUser.Password = userDTO.Password;
+                    existingUser.Email = userDTO.Email;
+                    
+                    return NoContent(); // Devuelve un código de estado 204 No Content para indicar una actualización exitosa
+                }
+                }
+                catch
             {
                 return BadRequest();
             }
-
         }
 
         [HttpDelete("{id}")]

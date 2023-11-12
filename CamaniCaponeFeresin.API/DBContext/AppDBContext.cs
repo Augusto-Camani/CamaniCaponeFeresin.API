@@ -1,4 +1,5 @@
 ﻿using CamaniCaponeFeresin.API.Entities; //Importamos el namespace de las ENTIDADES.
+using CamaniCaponeFeresin.API.Enums;
 using Microsoft.EntityFrameworkCore;  //Importamos ENTITY FRAMEWORK para poder heredar de la clase DbContext.
 
 namespace CamaniCaponeFeresin.API.DBContext //Definimos nuestro namespace.
@@ -26,8 +27,9 @@ namespace CamaniCaponeFeresin.API.DBContext //Definimos nuestro namespace.
         protected override void OnModelCreating(ModelBuilder modelBuilder) //Utilizamos la clase ModelBuilder, que permite crear un modelo para nuestro contexto al sobreescribirlo.
         {
             //Hacemos que nuestro modelo, reconozca un elemento (Objeto) del tipo entidad, y que en base a una propiedad del mismo, identifique dichos objetos.
-            modelBuilder.Entity<User>().HasDiscriminator(u => u.UserType);
-
+            modelBuilder.Entity<User>().HasDiscriminator<UserType>("UserType")
+                .HasValue<Admin>(UserType.Admin)
+                .HasValue<Client>(UserType.Client);
 
             modelBuilder.Entity<Client>().HasData( //Declaramos nuestros primeros clientes de nuestro contexto, para la base de datos.
             new Client
@@ -70,8 +72,7 @@ namespace CamaniCaponeFeresin.API.DBContext //Definimos nuestro namespace.
                 Name = "Guitarra",
                 Description = "Guitarra criolla",
                 Price = 30000
-            }
-             );
+            });
 
             modelBuilder.Entity<Client>(entity => //Se configura la entidad.
             {   //No requiere agregar el HasKey() ya que la llave primaria se encuentra en la clase padre.
