@@ -18,8 +18,8 @@ namespace CamaniCaponeFeresin.API.DBContext //Definimos nuestro namespace.
         public DbSet<User> Users { get; set; }  //Cada DbSet es una tabla nueva en nuestra BASE DE DATOS.
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Client> Clients { get; set; }
-        public DbSet<Sale> Purchases { get; set; } //Aquí tenemos tabla de usuarios, ventas, línea de ventas y productos.
-        public DbSet<SaleLine> PurchaseLines { get; set; }
+        public DbSet<Sale> Sales { get; set; } //Aquí tenemos tabla de usuarios, ventas, línea de ventas y productos.
+        public DbSet<SaleLine> SaleLines { get; set; }
         public DbSet<Product> Products { get; set; }
 
 

@@ -71,8 +71,7 @@ namespace CamaniCaponeFeresin.API.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Quantity = table.Column<int>(type: "INTEGER", nullable: false),
                     ProductId = table.Column<int>(type: "INTEGER", nullable: false),
-                    SaleId = table.Column<int>(type: "INTEGER", nullable: false),
-                    PurchaseId = table.Column<int>(type: "INTEGER", nullable: false)
+                    SaleId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

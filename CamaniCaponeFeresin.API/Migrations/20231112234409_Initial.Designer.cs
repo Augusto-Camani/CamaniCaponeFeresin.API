@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CamaniCaponeFeresin.API.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20231112014740_Initial")]
+    [Migration("20231112234409_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -78,9 +78,6 @@ namespace CamaniCaponeFeresin.API.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("PurchaseId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Quantity")

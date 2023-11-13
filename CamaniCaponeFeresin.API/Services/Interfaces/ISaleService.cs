@@ -1,8 +1,8 @@
 ﻿using CamaniCaponeFeresin.API.Entities;
 
-namespace CamaniCaponeFeresin.API.Data.Repositories.Interfaces
+namespace CamaniCaponeFeresin.API.Services.Interfaces
 {
-    public interface ISaleRepository
+    public interface ISaleService
     {
         public IEnumerable<Sale> GetAll();
         public IEnumerable<Sale> GetSalesByClientId(int clientId);
