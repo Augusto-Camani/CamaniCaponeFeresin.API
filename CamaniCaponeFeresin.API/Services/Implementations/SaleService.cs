@@ -56,6 +56,28 @@ namespace CamaniCaponeFeresin.API.Services.Implementations
 
             return sales;
         }
+        //public Sale GetSaleById(int id)
+        //{
+        //    var sale = _saleRepository.GetSaleById(id);
+
+        //    if (sale != null)
+        //    {
+        //        _saleRepository.IncludeSaleDetails(sale);
+        //    }
+
+        //    return sale;
+        //}
+
+        //public IEnumerable<Sale> GetSalesByClientId(int clientId)
+        //{
+        //    var sales = _saleRepository.GetSalesByClientId(clientId)
+        //        .Include(s => s.Client)
+        //        .Include(s => s.SaleLines)
+        //            .ThenInclude(sl => sl.Product)
+        //        .ToList();
+
+        //    return sales;
+        //}
         public Sale GetSaleById(int id)
         {
             var sale = _saleRepository.GetSaleById(id);
@@ -63,6 +85,7 @@ namespace CamaniCaponeFeresin.API.Services.Implementations
             if (sale != null)
             {
                 _saleRepository.IncludeSaleDetails(sale);
+                sale.TotalPrice = sale.SaleLines.Sum(sl => (float)(sl.Quantity * sl.Product.Price));
             }
 
             return sale;
@@ -76,8 +99,15 @@ namespace CamaniCaponeFeresin.API.Services.Implementations
                     .ThenInclude(sl => sl.Product)
                 .ToList();
 
+            // Calcular el TotalPrice para cada venta en la lista
+            sales.ForEach(s =>
+            {
+                s.TotalPrice = s.SaleLines.Sum(sl => (float)(sl.Quantity * sl.Product.Price));
+            });
+
             return sales;
         }
+
         public void AddSale(SaleDTO saleDTO)
         {
             var sale = _mapper.Map<Sale>(saleDTO);
