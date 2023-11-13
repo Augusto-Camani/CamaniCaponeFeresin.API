@@ -5,13 +5,18 @@ using CamaniCaponeFeresin.API.Services.Implementations;
 using CamaniCaponeFeresin.API.Services.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles); //Esto hay que agregarlo para que no haga referencias circulares al serializar.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -27,12 +32,14 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 #region Repositories
 builder.Services.AddScoped < IProductRepository, ProductRepository >(); 
 builder.Services.AddScoped<IUserRepository, UserRepository >();
+builder.Services.AddScoped<ISaleRepository, SaleRepository >();
 #endregion
 
 //Creamos una región en donde realizamos todas las inyecciones de dependencia de los Servicios.
 #region Services
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ISaleService, SaleService >();
 #endregion
 
 //Construye la aplicación, en base a todos los parámetros, reglas y órdenes que realizamos arriba.

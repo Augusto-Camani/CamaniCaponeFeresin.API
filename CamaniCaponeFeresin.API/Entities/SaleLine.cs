@@ -9,6 +9,7 @@ namespace CamaniCaponeFeresin.API.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int Quantity { get; set; }
+        public float TotalPrice { get; set; }
 
         [ForeignKey("ProductId")]
         public Product Product { get; set; }

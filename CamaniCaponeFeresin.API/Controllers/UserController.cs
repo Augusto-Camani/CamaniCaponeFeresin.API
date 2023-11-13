@@ -1,6 +1,4 @@
-﻿using CamaniCaponeFeresin.API.Enums;
-using CamaniCaponeFeresin.API.Models;
-using CamaniCaponeFeresin.API.Services.Implementations;
+﻿using CamaniCaponeFeresin.API.Models;
 using CamaniCaponeFeresin.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

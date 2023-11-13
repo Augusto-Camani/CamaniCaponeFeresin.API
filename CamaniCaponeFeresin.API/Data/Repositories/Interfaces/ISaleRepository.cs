@@ -4,8 +4,12 @@ namespace CamaniCaponeFeresin.API.Data.Repositories.Interfaces
 {
     public interface ISaleRepository
     {
-        public IEnumerable<Sale> GetAll();
-        public IEnumerable<Sale> GetSalesByClientId(int clientId);
-        public Sale GetSaleBy(int id);
+        IQueryable<Sale> GetAll();
+        IQueryable<Sale> GetSalesByClientId(int clientId);
+        Sale GetSaleById(int id);
+        void AddSale(Sale sale);
+        void DeleteSale(int id);
+        Sale IncludeSaleDetails(Sale sale);
+
     }
 }

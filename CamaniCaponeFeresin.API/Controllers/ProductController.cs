@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using CamaniCaponeFeresin.API.Entities;
 using CamaniCaponeFeresin.API.Models;
-using CamaniCaponeFeresin.API.Services.Implementations;
 using CamaniCaponeFeresin.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
