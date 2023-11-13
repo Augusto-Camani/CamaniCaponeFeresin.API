@@ -1,4 +1,5 @@
 ﻿using CamaniCaponeFeresin.API.Entities;
+using CamaniCaponeFeresin.API.Models;
 
 namespace CamaniCaponeFeresin.API.Data.Repositories.Interfaces
 {

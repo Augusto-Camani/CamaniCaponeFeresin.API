@@ -33,6 +33,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped < IProductRepository, ProductRepository >(); 
 builder.Services.AddScoped<IUserRepository, UserRepository >();
 builder.Services.AddScoped<ISaleRepository, SaleRepository >();
+builder.Services.AddScoped<ISaleLineRepository, SaleLineRepository >();
 #endregion
 
 //Creamos una región en donde realizamos todas las inyecciones de dependencia de los Servicios.
@@ -40,6 +41,7 @@ builder.Services.AddScoped<ISaleRepository, SaleRepository >();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ISaleService, SaleService >();
+builder.Services.AddScoped<ISaleLineService, SaleLineService >();
 #endregion
 
 //Construye la aplicación, en base a todos los parámetros, reglas y órdenes que realizamos arriba.

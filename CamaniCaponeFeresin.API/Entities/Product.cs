@@ -15,7 +15,7 @@ namespace CamaniCaponeFeresin.API.Entities
         public string? Description { get; set; }
 
         [Required]
-        public decimal Price { get; set; } = 0;
+        public float Price { get; set; } = 0;
         public ICollection<SaleLine> SaleLines { get; set;} = new List<SaleLine>();
     }
 }
