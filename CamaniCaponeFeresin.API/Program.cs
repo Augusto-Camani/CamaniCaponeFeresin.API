@@ -24,7 +24,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddAuthorization(options =>
+builder.Services.AddAuthorization(options => //Agregamos políticas para la autorización de los respectivos ENDPOINTS.
 {
     options.AddPolicy("AdminPolicy", policy => policy.RequireClaim("usertype", "Admin"));
     options.AddPolicy("ClientPolicy", policy => policy.RequireClaim("usertype", "Client"));

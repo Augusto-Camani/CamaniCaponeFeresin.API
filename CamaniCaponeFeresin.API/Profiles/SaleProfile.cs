@@ -8,7 +8,7 @@ namespace CamaniCaponeFeresin.API.Profiles
     {
         public SaleProfile()
         {
-            CreateMap<SaleDTO, Sale>();
+            CreateMap<SaleDTO, Sale>(); //Mappeo Múltible bidireccional.
             CreateMap<Sale, SaleDTO>();
         }
     }

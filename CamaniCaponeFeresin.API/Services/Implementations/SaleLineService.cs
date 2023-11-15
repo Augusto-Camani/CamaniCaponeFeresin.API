@@ -29,7 +29,7 @@ namespace CamaniCaponeFeresin.API.Services.Implementations
 
             if (saleLine != null)
             {
-                // Cargar la propiedad de navegación "Product" al recuperar la SaleLine
+                // Cargamos la propiedad de navegación "Product" al recuperar la SaleLine
                 _context.Entry(saleLine)
                     .Reference(sl => sl.Product)
                     .Load();
@@ -39,35 +39,35 @@ namespace CamaniCaponeFeresin.API.Services.Implementations
         }
         public void UpdateSaleLine(int saleLineId, SaleLineDTO saleLineDTO)
         {
-            // Obtener la SaleLine por su Id
+            // Obtenemos la SaleLine por su Id.
             var saleLine = _saleLineRepository.GetSaleLine(saleLineId);
 
             if (saleLine != null)
             {
-                // Actualizar propiedades de la SaleLine con los datos del DTO
+                // Actualizar propiedades de la SaleLine con los datos del DTO.
                 _mapper.Map(saleLineDTO, saleLine);
 
-                // Guardar cambios en la base de datos
+                // Guardar cambios en la base de datos.
                 _context.SaveChanges();
             }
         }
 
         public void AddSaleLine(int saleId, SaleLineDTO saleLineDTO)
         {
-                // Obtener la venta por su Id
+                // Obtener la venta por su Id.
                 var sale = _saleRepository.GetSaleById(saleId);
 
                 if (sale != null)
                 {
-                    // Mapear DTO a entidad SaleLine
-                    var saleLine = _mapper.Map<SaleLine>(saleLineDTO);
-                    // Asociar la SaleLine con la venta
+                    // Mapear DTO a entidad SaleLine.
+                    var saleLine = _mapper.Map<SaleLine>(saleLineDTO); //Mappeo del objeto completo.
+                    // Asociar la SaleLine con la venta.
                     saleLine.Sale = sale;
 
-                    // Agregar la SaleLine a la colección de SaleLines
+                    // Agregamos la SaleLine a la colección de SaleLines
                     sale.SaleLines.Add(saleLine);
 
-                    // Guardar cambios en la base de datos
+                    // Guardamos cambios en la base de datos.
                     _context.SaveChanges();
                 }
         }

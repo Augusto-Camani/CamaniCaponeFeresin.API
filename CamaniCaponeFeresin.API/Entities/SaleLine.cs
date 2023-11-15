@@ -28,7 +28,7 @@ namespace CamaniCaponeFeresin.API.Entities
 
         public void CalculateTotalPrice()
         {
-           // Calcular el precio total de la línea de venta multiplicando la cantidad por el precio del producto
+           // Calculamos el precio total de la línea de venta multiplicando la cantidad por el precio del producto
            TotalPrice = Quantity * (Product?.Price ?? 0);
         }
 

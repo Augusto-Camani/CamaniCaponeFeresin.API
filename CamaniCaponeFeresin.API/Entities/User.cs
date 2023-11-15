@@ -13,6 +13,6 @@ namespace CamaniCaponeFeresin.API.Entities
         public string Password { get; set; }
         public string Email { get; set; }
         [Required]
-        public UserType UserType { get; set; } = UserType.Client;
+        public UserType UserType { get; set; } = UserType.Client; //Definimos como predeterminado el tipo Client.
     }
 }

@@ -40,12 +40,12 @@ namespace CamaniCaponeFeresin.API.Services.Implementations
 
                         Product = new Product
                         {
-                            Id = sl.Product.Id,
+                            Id = sl.Product.Id, //Hacemos la inclusión de las propiedades de los objetos dentro de las Listas o colecciones de objetos.
                             Name = sl.Product.Name,
                             Price = sl.Product.Price,
                             Description = sl.Product.Description
                         },
-                        TotalPrice = (float)(sl.Quantity * sl.Product.Price)
+                        TotalPrice = (float)(sl.Quantity * sl.Product.Price) //Usamos float ya que SQL no comprende el tipo Decimal.
 
                     }).ToList(),
                     TotalPrice = s.SaleLines.Sum(sl => (float)(sl.Quantity * sl.Product.Price))

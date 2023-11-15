@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 
 namespace CamaniCaponeFeresin.API.Entities
 {
@@ -22,7 +21,7 @@ namespace CamaniCaponeFeresin.API.Entities
 
         public void CalculateTotalPrice()
         {
-            // Calcular el precio total de la venta sumando los precios totales de todas las líneas de venta
+            // Calculamos el precio total de la venta sumando los precios totales de todas las líneas de venta
             TotalPrice = SaleLines?.Sum(sl => sl.TotalPrice) ?? 0;
         }
 

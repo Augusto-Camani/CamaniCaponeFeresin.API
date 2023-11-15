@@ -44,11 +44,11 @@ namespace CamaniCaponeFeresin.API.Services.Implementations
 
             if (existingProduct == null)
             {
-                // Manejar el caso en el que el producto no existe
+                // Manejar el caso en el que el producto no existe.
                 throw new Exception("Producto no encontrado");
             }
 
-            // Mapear las propiedades relevantes del DTO a la entidad existente
+            // Mapear las propiedades relevantes de manera individual, del DTO a la entidad existente.
             existingProduct.Name = productDTO.Name;
             existingProduct.Description = productDTO.Description;
             existingProduct.Price = productDTO.Price;

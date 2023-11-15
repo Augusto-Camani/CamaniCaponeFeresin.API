@@ -16,7 +16,7 @@ namespace CamaniCaponeFeresin.API.Services.Implementations
 
         public BaseResponse ValidateUser(AuthenticationRequestBody authenticationRequest)
         {
-            if (string.IsNullOrEmpty(authenticationRequest.UserName) || string.IsNullOrEmpty(authenticationRequest.Password))
+            if (string.IsNullOrEmpty(authenticationRequest.UserName) || string.IsNullOrEmpty(authenticationRequest.Password)) //Verificamos que el usuario y la contraseña no sean NULAS.
                 return null;
 
             return _userRepository.ValidateUser(authenticationRequest);

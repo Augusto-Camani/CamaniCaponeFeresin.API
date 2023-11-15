@@ -8,7 +8,7 @@ namespace CamaniCaponeFeresin.API.Profiles
     {
         public SaleLineProfile()
         {
-            CreateMap<SaleLineDTO, SaleLine>();
+            CreateMap<SaleLineDTO, SaleLine>(); //Mappeo de DTO a Objeto.
         }
     }
 }
