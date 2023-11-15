@@ -7,7 +7,6 @@ namespace CamaniCaponeFeresin.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
     public class SaleController : ControllerBase
     {
         private readonly ISaleService _saleService;
@@ -18,6 +17,7 @@ namespace CamaniCaponeFeresin.API.Controllers
         }
 
         [HttpGet("GetAll")]
+        [Authorize("AdminPolicy")]
         public IActionResult GetAll()
         {
             try
@@ -31,6 +31,7 @@ namespace CamaniCaponeFeresin.API.Controllers
         }
 
         [HttpGet("GetSaleById{id}")]
+        [Authorize("AdminPolicy")]
         public IActionResult GetSaleById(int id)
         {
             try
@@ -44,6 +45,7 @@ namespace CamaniCaponeFeresin.API.Controllers
         }
 
         [HttpGet("GetSalesByClientId{clientId}")]
+        [Authorize("AdminPolicy")]
         public IActionResult GetSalesByClientId(int clientId)
         {
             try
@@ -57,6 +59,7 @@ namespace CamaniCaponeFeresin.API.Controllers
         }
 
         [HttpPost("AddSale")]
+        [Authorize("ClientPolicy")]
         public IActionResult AddSale([FromBody] SaleDTO saleDTO )
         {
             try
@@ -72,6 +75,7 @@ namespace CamaniCaponeFeresin.API.Controllers
         }
 
         [HttpDelete("DeleteSaleById")]
+        [Authorize("AdminPolicy")]
         public IActionResult DeleteSaleById(int id) 
         {
             try

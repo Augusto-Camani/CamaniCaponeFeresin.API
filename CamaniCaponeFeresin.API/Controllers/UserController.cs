@@ -7,7 +7,7 @@ namespace CamaniCaponeFeresin.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
+    
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -18,6 +18,7 @@ namespace CamaniCaponeFeresin.API.Controllers
         }
 
         [HttpGet("GetAll")]
+        [Authorize ("AdminPolicy")]
         public IActionResult GetAll()
         {
             try
@@ -31,6 +32,7 @@ namespace CamaniCaponeFeresin.API.Controllers
         }
 
         [HttpGet("GetById/{id}")]
+        [Authorize("AdminPolicy")]
         public IActionResult GetById(int id)
         {
             try
@@ -51,6 +53,7 @@ namespace CamaniCaponeFeresin.API.Controllers
         }
 
         [HttpGet("GetByName/{name}")]
+        [Authorize("AdminPolicy")]
         public IActionResult GetByName(string name)
         {
             try
@@ -64,6 +67,7 @@ namespace CamaniCaponeFeresin.API.Controllers
         }
 
         [HttpPost("CreateClient")]
+        [Authorize("BothPolicy")]
         public IActionResult CreateClient([FromBody] UserDTO userDTO)
         {
 
@@ -72,6 +76,7 @@ namespace CamaniCaponeFeresin.API.Controllers
         }
 
         [HttpPost("CreateAdmin")]
+        [Authorize("AdminPolicy")]
         public IActionResult CreateAdmin([FromBody] UserDTO adminDTO)
         {
 
@@ -81,6 +86,7 @@ namespace CamaniCaponeFeresin.API.Controllers
 
 
         [HttpPut("UpdateUser/{id}")]
+        [Authorize("AdminPolicy")]
         public IActionResult Update(int id, [FromBody] UserDTO userDTO)
         {
             try
@@ -96,6 +102,7 @@ namespace CamaniCaponeFeresin.API.Controllers
         }
 
         [HttpDelete("DeleteUser/{id}")]
+        [Authorize("AdminPolicy")]
         public IActionResult DeleteProduct(int id)
         {
             try

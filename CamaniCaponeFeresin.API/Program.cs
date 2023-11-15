@@ -24,6 +24,13 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 builder.Services.AddEndpointsApiExplorer();
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policy => policy.RequireClaim("usertype", "Admin"));
+    options.AddPolicy("ClientPolicy", policy => policy.RequireClaim("usertype", "Client"));
+    options.AddPolicy("BothPolicy", policy => policy.RequireClaim("usertype", "Admin", "Client"));
+});
+
 builder.Services.AddSwaggerGen(setupAction =>
 {
     setupAction.AddSecurityDefinition("CamaniCaponeFeresinApiBearerAuth", new OpenApiSecurityScheme() //Esto va a permitir usar swagger con el token.

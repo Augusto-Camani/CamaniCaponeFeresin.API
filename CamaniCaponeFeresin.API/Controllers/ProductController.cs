@@ -8,7 +8,6 @@ namespace CamaniCaponeFeresin.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -18,6 +17,7 @@ namespace CamaniCaponeFeresin.API.Controllers
         }
 
         [HttpGet("GetAll")]
+        [Authorize("BothPolicy")]
         public IActionResult GetAll()
         {
             try
@@ -31,6 +31,7 @@ namespace CamaniCaponeFeresin.API.Controllers
         }
 
         [HttpGet("GetById/{id}")]
+        [Authorize("AdminPolicy")]
         public IActionResult GetById(int id)
         {
             try
@@ -51,6 +52,7 @@ namespace CamaniCaponeFeresin.API.Controllers
         }
 
         [HttpGet("GetByName/{name}")]
+        [Authorize("BothPolicy")]
         public IActionResult GetByName(string name)
         {
             try
@@ -64,6 +66,7 @@ namespace CamaniCaponeFeresin.API.Controllers
         }
 
         [HttpPost("CreateProduct")]
+        [Authorize("AdminPolicy")]
         public IActionResult CreateProduct([FromBody] ProductDTO productDTO)
         {
             try
@@ -78,6 +81,7 @@ namespace CamaniCaponeFeresin.API.Controllers
         }
 
         [HttpPut("UpdateProduct/{id}")]
+        [Authorize("AdminPolicy")]
         public IActionResult Update(int id, [FromBody] ProductDTO productDTO)
         {
             try
@@ -93,6 +97,7 @@ namespace CamaniCaponeFeresin.API.Controllers
         }
 
         [HttpDelete("DeleteProduct/{id}")]
+        [Authorize("AdminPolicy")]
         public IActionResult DeleteProduct(int id)
         {
             try

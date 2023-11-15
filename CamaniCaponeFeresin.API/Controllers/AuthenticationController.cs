@@ -45,6 +45,7 @@ namespace ConsultaAlumnos.API.Controllers
                 var claimsForToken = new List<Claim>();
                 claimsForToken.Add(new Claim("sub", user.Id.ToString()));
                 claimsForToken.Add(new Claim("username", user.UserName));
+                claimsForToken.Add(new Claim("usertype", user.UserType.ToString()));
 
                 var jwtSecurityToken = new JwtSecurityToken(
                     _config["Authentication:Issuer"],
