@@ -8,7 +8,7 @@ namespace CamaniCaponeFeresin.API.Services.Interfaces
         IEnumerable<Sale> GetAll();
         IEnumerable<Sale> GetSalesByClientId(int clientId);
         Sale GetSaleById(int id);
-        void AddSale(SaleDTO saleDTO);
+        public void AddSale(SaleDTO saleDTO);
         void DeleteSale(int id);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using CamaniCaponeFeresin.API.Data.Repositories.Interfaces;
-using CamaniCaponeFeresin.API.DBContext;
 using CamaniCaponeFeresin.API.Entities;
+using CamaniCaponeFeresin.API.Models;
 
 namespace CamaniCaponeFeresin.API.Data.Repositories.Implementations
 {
@@ -45,6 +45,13 @@ namespace CamaniCaponeFeresin.API.Data.Repositories.Implementations
         {
             _context.Remove(GetById(id));
             _context.SaveChanges();
+        }
+
+        public User? ValidateUser(AuthenticationRequestBody authRequestBody)
+        {
+            if (authRequestBody.UserType == "Client")
+                return _context.Clients.FirstOrDefault(p => p.UserName == authRequestBody.UserName && p.Password == authRequestBody.Password);
+            return _context.Admins.FirstOrDefault(p => p.UserName == authRequestBody.UserName && p.Password == authRequestBody.Password);
         }
     }
 }

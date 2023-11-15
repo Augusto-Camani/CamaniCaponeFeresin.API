@@ -19,7 +19,6 @@ namespace CamaniCaponeFeresin.API.Entities
         [ForeignKey("ProductId")]
         public Product Product { get; set; }
         public int ProductId { get; set; }
-        
 
         [ForeignKey("SaleId")]
         public Sale Sale { get; set; }
@@ -30,7 +29,7 @@ namespace CamaniCaponeFeresin.API.Entities
         public void CalculateTotalPrice()
         {
            // Calcular el precio total de la línea de venta multiplicando la cantidad por el precio del producto
-           TotalPrice = Quantity * Product?.Price;
+           TotalPrice = Quantity * (Product?.Price ?? 0);
         }
 
     }

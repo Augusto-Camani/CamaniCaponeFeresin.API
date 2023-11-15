@@ -5,7 +5,6 @@ using CamaniCaponeFeresin.API.Entities;
 using CamaniCaponeFeresin.API.Models;
 using CamaniCaponeFeresin.API.Services.Interfaces;
 
-
 namespace CamaniCaponeFeresin.API.Services.Implementations
 {
     public class SaleService : ISaleService
@@ -87,20 +86,11 @@ namespace CamaniCaponeFeresin.API.Services.Implementations
         }
         public void AddSale(SaleDTO saleDTO)
         {
-            // Mapear SaleDTO a Sale
             var sale = _mapper.Map<Sale>(saleDTO);
             _saleRepository.AddSale(sale);
-
-            // Validar si hay líneas de venta antes de iterar sobre ellas
-            if (sale.SaleLines != null)
-            {
-                foreach (var saleLine in sale.SaleLines)
-                {
-                    saleLine.SaleId = sale.Id;
-                    _saleLineRepository.AddSaleLine(saleLine);
-                }
-            }
         }
+
+
         public void DeleteSale(int id)
         {
             _saleRepository.DeleteSale(id);

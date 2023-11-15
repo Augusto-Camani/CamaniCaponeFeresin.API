@@ -60,7 +60,8 @@ namespace CamaniCaponeFeresin.API.Controllers
             try
             {
                _saleService.AddSale(saleDTO);
-                return StatusCode(201);
+               return StatusCode(201);
+
             }
             catch (Exception ex) 
             {

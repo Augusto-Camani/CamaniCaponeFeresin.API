@@ -15,7 +15,6 @@ namespace CamaniCaponeFeresin.API.Controllers
             _productService = productService;
         }
 
-
         [HttpGet("GetAll")]
         public IActionResult GetAll()
         {

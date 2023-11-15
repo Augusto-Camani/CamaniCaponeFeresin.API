@@ -1,4 +1,6 @@
-﻿namespace CamaniCaponeFeresin.API.Models
+﻿using Newtonsoft.Json;
+
+namespace CamaniCaponeFeresin.API.Models
 {
     public class SaleLineDTO
     {

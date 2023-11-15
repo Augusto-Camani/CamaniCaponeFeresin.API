@@ -1,4 +1,5 @@
 ﻿using CamaniCaponeFeresin.API.Entities;
+using CamaniCaponeFeresin.API.Models;
 
 namespace CamaniCaponeFeresin.API.Data.Repositories.Interfaces
 {
@@ -11,5 +12,6 @@ namespace CamaniCaponeFeresin.API.Data.Repositories.Interfaces
         public void AddAdmin(User admin);
         public void Update(User user);
         public void Delete(int id);
+        User? ValidateUser(AuthenticationRequestBody authenticationRequestBody);
     }
 }
