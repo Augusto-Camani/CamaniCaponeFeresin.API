@@ -47,11 +47,29 @@ namespace CamaniCaponeFeresin.API.Data.Repositories.Implementations
             _context.SaveChanges();
         }
 
-        public User? ValidateUser(AuthenticationRequestBody authRequestBody)
+        public BaseResponse ValidateUser(AuthenticationRequestBody authRequestBody)
         {
-            if (authRequestBody.UserType == "Client")
-                return _context.Clients.FirstOrDefault(p => p.UserName == authRequestBody.UserName && p.Password == authRequestBody.Password);
-            return _context.Admins.FirstOrDefault(p => p.UserName == authRequestBody.UserName && p.Password == authRequestBody.Password);
+                BaseResponse response = new BaseResponse();
+                User? userForLogin = _context.Users.SingleOrDefault(u => u.UserName == authRequestBody.UserName);
+                if (userForLogin != null)
+                {
+                    if (userForLogin.Password == authRequestBody.Password)
+                    {
+                        response.Result = true;
+                        response.Message = "loging Succesfull";
+                    }
+                    else
+                    {
+                        response.Result = false;
+                        response.Message = "wrong password";
+                    }
+                }
+                else
+                {
+                    response.Result = false;
+                    response.Message = "wrong email";
+                }
+                return response;
         }
     }
 }

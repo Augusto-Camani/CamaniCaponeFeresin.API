@@ -14,7 +14,7 @@ namespace CamaniCaponeFeresin.API.Services.Implementations
             _userRepository = userRepository;
         }
 
-        public User? ValidateUser(AuthenticationRequestBody authenticationRequest)
+        public BaseResponse ValidateUser(AuthenticationRequestBody authenticationRequest)
         {
             if (string.IsNullOrEmpty(authenticationRequest.UserName) || string.IsNullOrEmpty(authenticationRequest.Password))
                 return null;

@@ -5,6 +5,6 @@ namespace CamaniCaponeFeresin.API.Services.Interfaces
 {
     public interface IAuthenticationService
     {
-        User? ValidateUser(AuthenticationRequestBody authenticationRequestBody);
+        BaseResponse ValidateUser(AuthenticationRequestBody authenticationRequestBody);
     }
 }
