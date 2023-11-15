@@ -1,11 +1,13 @@
 ﻿using CamaniCaponeFeresin.API.Models;
 using CamaniCaponeFeresin.API.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CamaniCaponeFeresin.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class SaleController : ControllerBase
     {
         private readonly ISaleService _saleService;

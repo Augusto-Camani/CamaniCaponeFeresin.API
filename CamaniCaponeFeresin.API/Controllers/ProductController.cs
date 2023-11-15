@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using CamaniCaponeFeresin.API.Models;
 using CamaniCaponeFeresin.API.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CamaniCaponeFeresin.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
